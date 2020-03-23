@@ -1,0 +1,21 @@
+.TopForm {
+  display: flex;
+  &-Dropdown {
+    min-width: 160px;
+  }
+  &-ActionButtons {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  &-ActionButtons-Item {
+    width: 77px;
+    margin-right: 10px;
+  }
+  &-Field {
+    margin-right: 10px;
+  }
+  &-ErrorMessage {
+    color: #ff0000;
+  }
+}
