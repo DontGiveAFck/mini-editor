@@ -7,7 +7,15 @@ import {
   REMOVE_LAST_ADDED_TEXT,
   SET_TEXT_SIZE
 } from '../actions/imageEditor';
-import { canvasSize, fonts, INVALID_HEX_VALUE, INVALID_TEXT_VALUE } from "../constants/common";
+import {
+  canvasSize,
+  fonts,
+  INVALID_HEX_VALUE,
+  INVALID_TEXT_VALUE,
+  MAX_FONT_SIZE,
+  MIN_FONT_SIZE,
+  MAX_TEXT_FIELD_VALUE_LENGTH
+} from "../constants/common";
 import { hexValidate, numberValidate } from '../helpers/common';
 
 const initialState = {
@@ -20,7 +28,6 @@ const initialState = {
       y: '0',
     },
     fontSize: '1',
-    isHexFieldValid: false,
   },
   errors: {
     color: '',
@@ -43,7 +50,8 @@ const imageEditorReducer = function (state = initialState, action) {
     }
 
     case SET_EDITOR_TEXT_INPUT_VALUE: {
-      if (action.value.length > 50) return state;
+      if (action.value.length > MAX_TEXT_FIELD_VALUE_LENGTH) return state;
+
       return {
         ...state,
         errors: {
@@ -159,7 +167,7 @@ const imageEditorReducer = function (state = initialState, action) {
     }
 
     case SET_TEXT_SIZE: {
-      let newValue = action.fontSize;
+      let newValue = parseInt(action.fontSize) || 0;
 
       // check if value - number
       if (!numberValidate(newValue)) {
@@ -167,9 +175,14 @@ const imageEditorReducer = function (state = initialState, action) {
       }
 
       // if value less then 1 - make it equal 1
-      if (Number(newValue) < 1) {
-        newValue = 1;
+      if (Number(newValue) < MIN_FONT_SIZE) {
+        newValue = MIN_FONT_SIZE;
       }
+
+      if (Number(newValue) > MAX_FONT_SIZE) {
+        newValue = MAX_FONT_SIZE;
+      }
+
       return {
         ...state,
         formValues: {

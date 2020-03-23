@@ -96,7 +96,7 @@ const TopForm= (props) => {
           <Form.Control type="text" placeholder="pos y" name="y" onChange={setPosition} value={position.y}/>
         </Form.Group>
         <Form.Group className={block('Field')}>
-          <Form.Label>Text size (px)</Form.Label>
+          <Form.Label>Text size (px, 0 - 100)</Form.Label>
           <Form.Control type="text" onChange={setTextSize} value={fontSize}/>
         </Form.Group>
 
